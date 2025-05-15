@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прости меня, любимая</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5e1ee, #ffcccb);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            color: #4a2c3f;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+        p {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            max-width: 600px;
+            opacity: 0;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4d4d;
+            transform: rotate(-45deg);
+            z-index: 1;
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff4d4d;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Прости меня, моя любимая</h1>
+        <p>Я так сильно тебя люблю и сожалею, если обидел.</p>
+        <p>Ты — моё всё, и я сделаю всё, чтобы ты улыбалась.</p>
+        <p>Пожалуйста, прости меня! ❤️</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+        // Анимация текста
+        gsap.from("h1", { duration: 1.5, y: -50, opacity: 0, ease: "power2.out" });
+        gsap.from("p", {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            stagger: 0.3,
+            ease: "power2.out",
+            delay: 0.5
+        });
+
+        // Создание и анимация сердечек
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            document.body.appendChild(heart);
+
+            const size = Math.random() * 20 + 10;
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.top = `${Math.random() * 100}vh`;
+
+            gsap.to(heart, {
+                y: -1000,
+                opacity: 0,
+                duration: Math.random() * 3 + 2,
+                ease: "power1.in",
+                onComplete: () => heart.remove()
+            });
+        }
+
+        // Создаём сердечки каждые 300 мс
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
